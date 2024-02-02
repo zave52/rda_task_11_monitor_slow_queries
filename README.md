@@ -15,7 +15,7 @@ In this task you will work with a `ShopDB` database, which has 2 tables:
 
 In this task, you will need to analyse the MySQL slow query log and copare the read operation performance for 2 database engines - InnoDB and MyIsam:  
 
-1. Connect to your database server virtual machine via SSH, and enable slow query log by updating the mysql configuration file. After the config file update, make sure to restart the mysqsl service using systemctl. 
+1. Connect to your database server virtual machine via SSH, and enable slow query log by updating the mysql configuration file. Set configuration option `long_query_time` to 0, so you will see all queries in the slow query log. After the config file update, make sure to restart the mysqsl service using systemctl. 
 2. Run the script `task.sql`, which creates the database and populates test data on your database server. 
 3. Close database connection from the MySQL Workbench.
 4. Connect to your server using **mysql client on your virtual machine** and run 2 sample queries:
