@@ -1,0 +1,45 @@
+name: Test
+
+on:
+  workflow_dispatch: 
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Spin-up the database for tests
+      run: docker run --name mysql -e MYSQL_ROOT_PASSWORD=P@ssw0rd -v $(pwd):/scripts -d mysql:latest
+
+    - name: Wait for the database service to start 
+      run: sleep 15 
+
+    - name: Populate the database schema for tests
+      run: docker exec mysql sh -c 'mysql -u root -pP@ssw0rd < /scripts/task.sql'
+    
+    - name: Run the tests
+      run: |
+        match=$(cat task.sql | grep -P  '^CREATE TABLE Products1' || true)
+        if [ -z "$match" ]; then 
+            echo "Missing correct table - Error"
+            exit 1
+        else
+            echo "Correct table is in place - OK"
+        fi
+
+        match=$(cat task.sql | grep -P  '^CREATE TABLE Products2' || true)
+        if [ -z "$match" ]; then 
+            echo "Wrong table is missing - OK"
+        else
+            echo "Wrong table is in place - Error"
+            exit 1
+        fi
