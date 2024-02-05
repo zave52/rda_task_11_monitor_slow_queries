@@ -1,10 +1,11 @@
-# Use slow query log 
+# Use Slow Query Log 
 
-The MySQL slow query log can be very helpful when dealing with the database optimisation, and today you will practice analysing it! 
+The MySQL slow query log can be very helpful when dealing with database optimization, and today you will practice analyzing it! 
 
-In this task you will work with a `ShopDB` database, which has 2 tables: 
-- `Products1` - uses InnoDB database engine. 
-- `Products2` - uses MyISAM database engine. 
+In this task, you will work with a `ShopDB` database, which has 2 tables: 
+
+- `Products1` that uses the InnoDB database engine; 
+- `Products2` that uses the MyISAM database engine. 
 
 ## Prerequisites
 
@@ -13,23 +14,28 @@ In this task you will work with a `ShopDB` database, which has 2 tables:
 
 ## Requirements
 
-In this task, you will need to analyse the MySQL slow query log and copare the read operation performance for 2 database engines - InnoDB and MyIsam:  
+In this task, you will need to analyze the MySQL slow query log and compare the read operation performance for 2 database engines: InnoDB and MyISAM:  
 
-1. Connect to your database server virtual machine via SSH, and enable slow query log by updating the mysql configuration file. Set configuration option `long_query_time` to 0, so you will see all queries in the slow query log. After the config file update, make sure to restart the mysqsl service using systemctl. 
-2. Run the script `task.sql`, which creates the database and populates test data on your database server. 
+1. Connect to your database server virtual machine via SSH and enable a slow query log by updating the MySQL configuration file. Set the configuration option `long_query_time` to `0` so you will see all queries in the slow query log. After the config file update, restart the MySQL service using `systemctl`. 
+
+2. Run the `task.sql` script, which creates the database and populates test data on your database server. 
+
 3. Close database connection from the MySQL Workbench.
-4. Connect to your server using **mysql client on your virtual machine** and run 2 sample queries:
 
-    - "Query 1": 
+4. Connect to your server using **MySQL client on your virtual machine** and run 2 sample queries:
+
+    - first one: 
         ```
             select * from Products1 where Name = "AwersomeProduct42";
         ```
-    - "Query 2": 
+    - second one: 
         ```
             select * from Products2 where Name = "AwersomeProduct42";
         ```
-Run each query multiple times (at least 10 times). 
+💡 Run each query *at least 10 times*.  
 
-If you will run queries from MySQL Workbench, there will be a lot of additional queries in the log, and will be hard to analyse it, so make sure to use terminal client (you already have one installed on the virtual machine, where database server is running). 
-5. Analyse the slow query log and identify the query, which works slower (in average) than the other one. 
-6. Edit the `task.sql` file - remove the code for creation of table and data, which is used by the "slow" query. Submit your solution for a review.
+If you run queries from MySQL Workbench, there will be a lot of additional queries in the log which it will be hard to analyze, so make sure to use a terminal client (you already have one installed on the virtual machine, where the database server is running). 
+
+5. Analyse the slow query log and identify the query which works slower (on average) than the other one. 
+
+6. Edit the `task.sql` file: remove the code for the table creation and data creation, which is used by the "slow" query. Submit your solution for a review.
